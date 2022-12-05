@@ -23,7 +23,7 @@ const Header = styled.h1`
 const App = () => {
   // Try to think through what state you'll need for this app before starting. Then build out
   // the state properties here.
-  const [characters, setCharacters] = useState([]);
+  let [characters, setCharacters] = useState([]);
   const [page, setPage] = useState(1);
 
   // Fetch characters from the API in an effect hook. Remember, anytime you have a
@@ -35,24 +35,28 @@ const App = () => {
       const people = async () => {
         const response = await axios({
           method: "GET",
-          url: `https://swapi.dev/api/people/?page=${page}`,
+          url: `https://swapi.dev/api/people/`,
         });
         let data = response.data;
-        console.log(data, data.results);
-        setCharacters(data.results);
+        console.log(data, response.body);
+        console.log(data, data.results, typeof data["results"]);
+        return setCharacters(data);
       };
       people();
+      console.log(people());
     } catch (error) {
       console.error(error);
       // Page will be the change variable here.
     }
   }, []);
 
+  console.log(characters);
+
   return (
     <div className="App">
       <GlobalStyle />
       <Header className="Header">Star Wars Characters</Header>
-      <Wrapper>
+      <Wrapper characters={characters}>
         <Page characters={characters} />
       </Wrapper>
     </div>

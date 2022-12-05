@@ -87,3 +87,19 @@ export const Character = styled.section`
     }
   }
 `;
+
+const StyledCharacter = function (props) {
+  const { character } = props;
+
+  return (
+    <div>
+      <BasicInfo>
+        {character.name}
+        {character.birth_year}
+      </BasicInfo>
+      <MainInfo></MainInfo>
+    </div>
+  );
+};
+
+export default StyledCharacter;

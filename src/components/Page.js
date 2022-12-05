@@ -49,62 +49,113 @@ const StyledPage = styled.section`
 
 const Page = function (props) {
   const { characters } = props;
+  console.log(characters);
 
   const expandCharacter = (index) => {
     const clickedCharacter = document.querySelectorAll(".character")[index];
     clickedCharacter.querySelector(".character-info").classList.toggle("expand");
   };
 
+  let renderedCharacters;
+
+  if (characters.results) {
+    renderedCharacters = characters.results.map((character, index) => (
+      <Character key={index} className="character">
+        <BasicInfo>
+          <p>{character.name}</p>
+          <div>
+            <p>{character.birth_year}</p>
+            <p>
+              <FontAwesomeIcon
+                icon={faChevronDown}
+                onClick={() => {
+                  expandCharacter(index);
+                }}
+              />
+            </p>
+          </div>
+        </BasicInfo>
+        <MainInfo className="character-info">
+          <div>
+            <p>Gender:</p>
+            <p>{character.gender}</p>
+          </div>
+          <div>
+            <p>Height:</p>
+            <p>{character.height}</p>
+          </div>
+          <div>
+            <p>Mass:</p>
+            <p>{character.mass}</p>
+          </div>
+          <div>
+            <p>Hair Color:</p>
+            <p>{character.hair_color}</p>
+          </div>
+          <div>
+            <p>Eye Color:</p>
+            <p>{character.eye_color}</p>
+          </div>
+          <div>
+            <p>Skin Color:</p>
+            <p>{character.skin_color}</p>
+          </div>
+        </MainInfo>
+      </Character>
+    ));
+  } else {
+    renderedCharacters = characters.map((character, index) => (
+      <Character key={index} className="character">
+        <BasicInfo>
+          <p>{character.name}</p>
+          <div>
+            <p>{character.birth_year}</p>
+            <p>
+              <FontAwesomeIcon
+                icon={faChevronDown}
+                onClick={() => {
+                  expandCharacter(index);
+                }}
+              />
+            </p>
+          </div>
+        </BasicInfo>
+        <MainInfo className="character-info">
+          <div>
+            <p>Gender:</p>
+            <p>{character.gender}</p>
+          </div>
+          <div>
+            <p>Height:</p>
+            <p>{character.height}</p>
+          </div>
+          <div>
+            <p>Mass:</p>
+            <p>{character.mass}</p>
+          </div>
+          <div>
+            <p>Hair Color:</p>
+            <p>{character.hair_color}</p>
+          </div>
+          <div>
+            <p>Eye Color:</p>
+            <p>{character.eye_color}</p>
+          </div>
+          <div>
+            <p>Skin Color:</p>
+            <p>{character.skin_color}</p>
+          </div>
+        </MainInfo>
+      </Character>
+    ));
+  }
+
   return (
     <StyledPage>
       <SearchBar />
       <Results>
-        {characters.map((character, index) => {
-          return (
-            <Character key={index} className="character">
-              <BasicInfo>
-                <p>{character.name}</p>
-                <div>
-                  <p>{character.birth_year}</p>
-                  <p>
-                    <FontAwesomeIcon
-                      icon={faChevronDown}
-                      onClick={() => {
-                        expandCharacter(index);
-                      }}
-                    />
-                  </p>
-                </div>
-              </BasicInfo>
-              <MainInfo className="character-info">
-                <div>
-                  <p>Gender:</p>
-                  <p>{character.gender}</p>
-                </div>
-                <div>
-                  <p>Height:</p>
-                  <p>{character.height}</p>
-                </div>
-                <div>
-                  <p>Mass:</p>
-                  <p>{character.mass}</p>
-                </div>
-                <div>
-                  <p>Hair Color:</p>
-                  <p>{character.hair_color}</p>
-                </div>
-                <div>
-                  <p>Eye Color:</p>
-                  <p>{character.eye_color}</p>
-                </div>
-                <div>
-                  <p>Skin Color:</p>
-                  <p>{character.skin_color}</p>
-                </div>
-              </MainInfo>
-            </Character>
-          );
-        })}
+        {console.log(characters)}
+        {characters && renderedCharacters}
       </Results>
       <PageNavigation></PageNavigation>
     </StyledPage>
